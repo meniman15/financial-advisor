@@ -76,8 +76,7 @@ class Calculator extends React.Component{
         const res = await fetch('https://api.tase.co.il/api/content/searchentities?lang=0');
         const data = await res.json();
         console.log(data);
-        this.setState({stockNamesToIds: data.filter((stock)=> stock.SubId!=null && stock.SubType==="0" && (stock.Type===1 || stock.Type===9) && stock.ISIN!==null
-            ).map(stock => ({value:stock.Name, key: stock.Id}))});
+        this.setState({stockNamesToIds: data.filter((stock)=> stock.SubId!=null && stock.SubType==="0").map(stock => ({value:stock.Name, key: stock.SubId}))});
     };
 
     stockSelectionCallback = (selection) => {

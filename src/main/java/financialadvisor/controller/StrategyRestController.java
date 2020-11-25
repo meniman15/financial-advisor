@@ -13,18 +13,26 @@ import financialadvisor.model.strategies.stopTriggers.FixedTakeProfit;
 import financialadvisor.services.StockTradeMgr;
 import financialadvisor.services.StrategyMgr;
 import financialadvisor.tasks.CalculateStockStrategiesTask;
-import javafx.util.Pair;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
+import org.springframework.http.HttpStatus;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @CrossOrigin("*")
@@ -133,13 +141,13 @@ public class StrategyRestController {
             String strategy =Collections.max(strategiesToProfitPercentage.entrySet(),Comparator.comparingDouble(Map.Entry::getValue)).getKey();
             Double profitPercentage = strategiesToProfitPercentage.get(strategy);
             strategiesToProfitPercentage.remove(strategy);
-            minMaxStrategies.add(new Pair<>(strategy,profitPercentage));
+            minMaxStrategies.add(Pair.of(strategy,profitPercentage));
         }
         for(int i=0; i<N_TOP_STRATEGIES; i++){
             String strategy =Collections.min(strategiesToProfitPercentage.entrySet(),Comparator.comparingDouble(Map.Entry::getValue)).getKey();
             Double profitPercentage = strategiesToProfitPercentage.get(strategy);
             strategiesToProfitPercentage.remove(strategy);
-            minMaxStrategies.add(new Pair<>(strategy,profitPercentage));
+            minMaxStrategies.add(Pair.of(strategy,profitPercentage));
         }
         return minMaxStrategies;
     }
