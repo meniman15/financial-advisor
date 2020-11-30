@@ -18,11 +18,12 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-        isFirstPage : true,
+        isFirstPage : true
     }
   }
 
   componentDidMount() {
+    if (window.location.pathname === "/login"){
       axios.get("http://localhost:8080/login",{withCredentials : true}).then(response => {
           console.log(JSON.stringify(response));
           console.log(response.data);
@@ -30,6 +31,7 @@ class App extends React.Component {
               history.push("/mainPage");
           }
       });
+    }
   }
 
   onOpeningPageSubmit = () => {

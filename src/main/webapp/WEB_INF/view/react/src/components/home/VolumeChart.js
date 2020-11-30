@@ -6,7 +6,7 @@ let CanvasJSChart = CanvasJSReact.CanvasJSChart;
 class VolumeChart extends Component {
 
     render() {
-        if (this.props.volumeData.length === 0 ){
+        if (!this.props.volumeData || this.props.volumeData.length === 0 ){
             return <h2> Loading... </h2>;
 
         }

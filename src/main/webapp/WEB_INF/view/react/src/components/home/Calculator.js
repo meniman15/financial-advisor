@@ -58,14 +58,14 @@ class Calculator extends React.Component{
         console.log("fetch stock names: "+ JSON.stringify(this.state.stockNamesToIds));
     }
 
-    async fetchEntryStrategies(){
+    fetchEntryStrategies(){
         fetch('http://localhost:8080/entryStrategies').then((res)=>res.json()).then((data)=> {
             this.setState({entryStrategies: data.map(name => ({title:name}))},
                 ()=> this.setState({entryStrategy: this.state.entryStrategies[this.state.entryStrategies.length-1]}));
         });
     };
 
-    async fetchExitStrategies(){
+    fetchExitStrategies(){
         fetch('http://localhost:8080/exitStrategies').then((res)=>res.json()).then((data)=> {
             this.setState({exitStrategies: data.map(name => ({title:name}))},
                 ()=> this.setState({exitStrategy: this.state.exitStrategies[this.state.exitStrategies.length-1]}));

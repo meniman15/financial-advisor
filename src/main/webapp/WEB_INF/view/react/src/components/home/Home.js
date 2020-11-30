@@ -7,6 +7,7 @@ export default class Home extends React.Component{
         return(
             <div>
                 <NavigationBar/>
+                <h1> ברוכים הבאים לבקטסט ישראל</h1>
                 <Footer/>
             </div>
             )

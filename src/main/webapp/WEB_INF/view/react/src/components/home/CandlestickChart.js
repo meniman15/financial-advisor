@@ -6,7 +6,7 @@ let CanvasJSChart = CanvasJSReact.CanvasJSChart;
 class CandlestickChart extends Component {
 
 	render() {
-		if (this.props.data.length === 0 ){
+		if (!this.props.data || this.props.data.length === 0 ){
 			return <h2> Loading... </h2>; 
 			
 		}
