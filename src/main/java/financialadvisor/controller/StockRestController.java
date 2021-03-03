@@ -3,6 +3,7 @@ package financialadvisor.controller;
 import financialadvisor.model.Candle;
 import financialadvisor.model.Stock;
 import financialadvisor.model.TechnicalLinesAgg;
+import financialadvisor.model.dto.ClassificationVectorDTO;
 import financialadvisor.model.dto.StockNameIdDTO;
 import financialadvisor.services.RestClientService;
 import financialadvisor.services.StockTradeMgr;
@@ -282,5 +283,19 @@ public class StockRestController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "ohh ohh, something bad happened: ", e);
         }
         return stocksMetadata;
+    }
+
+    @GetMapping("getStockClassifications/{id}")
+    public List<ClassificationVectorDTO> getClassificationVectors(@PathVariable int id){
+        List<ClassificationVectorDTO> vectors = new ArrayList<>();
+        List<Candle> candles = getStockData(id).getCandles();
+        for (int i=0; i<candles.size()-11; i++){
+            Candle candle = candles.get(i);
+            float closingRateInTenDays = candles.get(i+10).getClosingRate();
+            ClassificationVectorDTO vector = new ClassificationVectorDTO(candle.getOpenRate(), candle.getClosingRate(),
+                closingRateInTenDays, candle.getClosingRate() < closingRateInTenDays);
+            vectors.add(vector);
+        }
+        return vectors;
     }
 }
