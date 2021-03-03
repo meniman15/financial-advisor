@@ -1,13 +1,16 @@
 package financialadvisor.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ClassificationVectorDTO {
   float openPrice;
   float closingPrice;
   float futurePrice;
-  boolean worthInvest;
+  @JsonProperty("worthInvest")
+  int worthInvest;
 
   public ClassificationVectorDTO(float openPrice, float closingPrice, float futurePrice,
-      boolean worthInvest) {
+      int worthInvest) {
     this.openPrice = openPrice;
     this.closingPrice = closingPrice;
     this.futurePrice = futurePrice;
@@ -38,11 +41,11 @@ public class ClassificationVectorDTO {
     this.futurePrice = futurePrice;
   }
 
-  public boolean isWorthInvest() {
+  public int isWorthInvest() {
     return worthInvest;
   }
 
-  public void setWorthInvest(boolean worthInvest) {
+  public void setWorthInvest(int worthInvest) {
     this.worthInvest = worthInvest;
   }
 }

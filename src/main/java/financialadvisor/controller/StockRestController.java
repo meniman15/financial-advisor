@@ -292,8 +292,9 @@ public class StockRestController {
         for (int i=0; i<candles.size()-11; i++){
             Candle candle = candles.get(i);
             float closingRateInTenDays = candles.get(i+10).getClosingRate();
+            int worthInvesting = candle.getClosingRate() < closingRateInTenDays ? 0 : 1;
             ClassificationVectorDTO vector = new ClassificationVectorDTO(candle.getOpenRate(), candle.getClosingRate(),
-                closingRateInTenDays, candle.getClosingRate() < closingRateInTenDays);
+                closingRateInTenDays, worthInvesting);
             vectors.add(vector);
         }
         return vectors;
